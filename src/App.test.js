@@ -42,6 +42,49 @@ describe('square', () => {
     });
     expect(squares[6].innerHTML).toBe("O");
   });
+
+
+  it('click same square: ', () => {
+    act(() => {
+      ReactDOM.createRoot(container).render(<Board />);
+    });
+    const squares = container.querySelectorAll(".square");
+    act(() => {
+      squares[5].click();
+    });
+    expect(squares[5].innerHTML).toBe("X");
+    act(() => {
+      squares[5].click();
+    });
+    expect(squares[5].innerHTML).toBe("X");
+  });
+  it('finish game: ', () => {
+    act(() => {
+      ReactDOM.createRoot(container).render(<Board />);
+    });
+    const status = container.querySelector(".status");
+    const squares = container.querySelectorAll(".square");
+    act(() => {
+      squares[0].click();
+    });
+    act(() => {
+      squares[8].click();
+    });
+    act(() => {
+      squares[2].click();
+    });
+    act(() => {
+      squares[4].click();
+    });
+    act(() => {
+      squares[1].click();
+    });
+    expect(status.innerHTML).toBe("Winner: X");
+    act(() => {
+      squares[3].click();
+    });
+    expect(squares[3].innerHTML).toBe("")
+  });
 });
 
 describe("Calculate winner", () => {
@@ -68,7 +111,45 @@ describe("Calculate winner", () => {
   })
 });
 
+describe("Status", () => {
+  it('next O',  () => {
+    act(() => {
+      ReactDOM.createRoot(container).render(<Board />);
+    });
+    const status = container.querySelector(".status");
+    expect(status.innerHTML).toBe("Next player: X");
+    const squares = container.querySelectorAll(".square");
+    act(() => {
+      squares[5].click();
+    });
+    expect(status.innerHTML).toBe("Next player: O");
+  });
 
+  it('winner',  () => {
+    act(() => {
+      ReactDOM.createRoot(container).render(<Board />);
+    });
+    const status = container.querySelector(".status");
+    expect(status.innerHTML).toBe("Next player: X");
+    const squares = container.querySelectorAll(".square");
+    act(() => {
+      squares[0].click();
+    });
+    act(() => {
+      squares[8].click();
+    });
+    act(() => {
+      squares[2].click();
+    });
+    act(() => {
+      squares[4].click();
+    });
+    act(() => {
+      squares[1].click();
+    });
+    expect(status.innerHTML).toBe("Winner: X");
+  });
+})
 
 
 
