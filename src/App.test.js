@@ -16,16 +16,17 @@ afterEach(() => {
 });
 
 describe('Square', () => {
-  it('Square render: ', () => {
+  it('Board render: ', () => {
     act(() => {
-      ReactDOM.createRoot(container).render(<Square />);
+      ReactDOM.createRoot(container).render(<Board />);
     });
-    const square = container.querySelector("button");
-    expect(square.innerHTML).toBe("");
-    act(()=>{
-      square.click()
-    })
-    expect(square.innerHTML).toBe("X");
+
+    const squares = container.querySelectorAll(".square");
+    act(() => {
+      squares[5].click();
+    });
+
+    expect(squares[5].innerHTML).toBe("X")
   });
 });
 
