@@ -1,17 +1,34 @@
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom'
 import userEvent from "@testing-library/user-event";
+import ReactDOM from 'react-dom/client';
 import {Square, Board } from './App';
+import { act } from 'react-dom/test-utils';
 
-test('Square: ', () => {
-  render(<Square />);
-  const linkElement = screen.getByRole('square');
-  userEvent.click(linkElement)
+let container;
+beforeEach(() => {
+  container = document.createElement('div');
+  document.body.appendChild(container);
+});
+afterEach(() => {
+  document.body.removeChild(container);
+  container = null;
 });
 
-test('Board: ', () => {
-  render(<Board />);
-  const linkElement = screen.getAllByRole('square');
-  for (let el of linkElement){
-    userEvent.click(el)
-  }
+describe('Square', () => {
+  it('Square render: ', () => {
+    act(() => {
+      ReactDOM.createRoot(container).render(<Square />);
+    });
+    const square = container.querySelector("button");
+    expect(square.innerHTML).toBe("");
+    act(()=>{
+      square.click()
+    })
+    expect(square.innerHTML).toBe("X");
+  });
 });
+
+
+
+

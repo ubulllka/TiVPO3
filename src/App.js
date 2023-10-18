@@ -1,18 +1,35 @@
 import './style.css';
+import {useState} from "react";
 
 
 export function Square() {
-  return (
-    <button role="square" className="square">X</button>
-  );
+    const [value, setValue] = useState(null);
+    function handleClick(){
+        setValue("X")
+    }
+    return (
+    <button className="square" onClick={handleClick} >{value}</button>
+    );
 }
 
 export function Board() {
-  return (
-      <div className="board-row">
-        <Square />
-        <Square />
-        <Square />
-      </div>
-  )
+    return (
+        <>
+            <div className="board-row">
+                <Square />
+                <Square />
+                <Square />
+            </div>
+            <div className="board-row">
+                <Square />
+                <Square />
+                <Square />
+            </div>
+            <div className="board-row">
+                <Square />
+                <Square />
+                <Square />
+            </div>
+            </>
+    );
 }
